@@ -2,8 +2,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
-import BaseButton from './components/BaseButton.vue';
-import type { Task } from './types/task';
+
 
 </script>
 
