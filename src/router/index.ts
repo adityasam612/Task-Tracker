@@ -1,6 +1,7 @@
+// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import { authService } from '@/services/authService'
-import Home from '@/views/HomeView.vue'
+import HomeView from '@/views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,13 +9,14 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: HomeView,
       meta: { requiresAuth: true }
     },
     {
       path: '/about',
       name: 'about',
       component: () => import('@/views/AboutView.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
@@ -25,16 +27,21 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('@/views/RegisterView.vue')
-    },
-
+    }
   ]
 })
 
+// Navigation guard
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/login' && !authService.isAuthenticated()) {
-    next('/login')
+  const isAuthenticated = authService.isAuthenticated();
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !isAuthenticated) {
+    next('/login');
+  } else if ((to.path === '/login' || to.path === '/register') && isAuthenticated) {
+    next('/');
   } else {
-    next()
+    next();
   }
 })
 

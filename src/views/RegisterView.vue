@@ -1,5 +1,6 @@
+<!-- src/views/RegisterView.vue -->
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import BaseButton from '../components/BaseButton.vue';
 import { authService } from '../services/authService';
@@ -12,13 +13,14 @@ const confirmPassword = ref('');
 const error = ref('');
 const isLoading = ref(false);
 
-const isPasswordMatch = computed(() => {
-  return password.value === confirmPassword.value;
-});
-
 const handleRegister = async () => {
-  if (!isPasswordMatch.value) {
+  if (password.value !== confirmPassword.value) {
     error.value = 'Passwords do not match';
+    return;
+  }
+
+  if (password.value.length < 6) {
+    error.value = 'Password must be at least 6 characters';
     return;
   }
 
@@ -30,9 +32,9 @@ const handleRegister = async () => {
       name: name.value,
       email: email.value,
       password: password.value,
-      confirmPassword: confirmPassword.value,
     });
 
+    // Registration successful, redirect to home
     router.push('/');
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Registration failed';
@@ -79,6 +81,7 @@ const handleRegister = async () => {
             v-model="password"
             type="password"
             required
+            minlength="6"
             class="form-input"
             placeholder="Enter your password"
           />
@@ -103,7 +106,7 @@ const handleRegister = async () => {
         <BaseButton
           label="Register"
           type="primary"
-          :disabled="isLoading || !isPasswordMatch"
+          :disabled="isLoading || !name || !email || !password || !confirmPassword"
         />
 
         <div class="auth-links">
@@ -113,3 +116,4 @@ const handleRegister = async () => {
     </div>
   </div>
 </template>
+
