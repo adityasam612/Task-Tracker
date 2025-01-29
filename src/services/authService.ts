@@ -1,4 +1,4 @@
-// src/services/authService.ts
+
 
 interface User {
   id: number;
@@ -25,7 +25,7 @@ interface AuthResponse {
 export const authService = {
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      // For demo purposes, using users endpoint
+
       const response = await fetch(`https://jsonplaceholder.typicode.com/users?email=${credentials.email}`);
 
       if (!response.ok) {
@@ -38,11 +38,11 @@ export const authService = {
         throw new Error('User not found');
       }
 
-      // Simulate successful login
+
       const user = users[0];
       const token = `demo-token-${user.id}`;
 
-      // Store auth data
+
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
 
@@ -54,7 +54,7 @@ export const authService = {
 
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
     try {
-      // Simulate registration with JSONPlaceholder
+
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         headers: {
@@ -63,7 +63,7 @@ export const authService = {
         body: JSON.stringify({
           name: credentials.name,
           email: credentials.email,
-          // Don't send real password in demo
+
         }),
       });
 
@@ -74,7 +74,7 @@ export const authService = {
       const user = await response.json();
       const token = `demo-token-${user.id}`;
 
-      // Store auth data
+
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
 

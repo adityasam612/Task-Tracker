@@ -1,4 +1,4 @@
-<!-- src/views/RegisterView.vue -->
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -34,7 +34,7 @@ const handleRegister = async () => {
       password: password.value,
     });
 
-    // Registration successful, redirect to home
+
     router.push('/');
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Registration failed';
