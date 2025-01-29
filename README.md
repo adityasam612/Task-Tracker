@@ -11,8 +11,9 @@ Password: test123
 
 For Registration:
 Since JSONPlaceholder doesn't actually store new users (it's a mock API), you can use any email and password combination
-Name: Your Name
-Email: test@example.com
+
+Name: Your Name,
+Email: test@example.com,
 Password: password123
 
 Here are all the existing test users in JSONPlaceholder you can try:
