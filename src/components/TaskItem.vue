@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import BaseButton from './BaseButton.vue';
 import type { Task } from '../types/task';
 
@@ -7,44 +8,82 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
 const emit = defineEmits<{
   (e: 'toggle-completed', task: Task): void;
-  (e: 'edit-task', task: Task): void;
+  (e: 'update-task', task: Task): void;
   (e: 'delete-task', task: Task): void;
 }>();
+
+const isEditing = ref(false);
+const editTitle = ref(props.task.title);
+
+const startEditing = () => {
+  isEditing.value = true;
+  editTitle.value = props.task.title;
+};
+
+const saveEdit = () => {
+  if (editTitle.value.trim()) {
+    emit('update-task', { ...props.task, title: editTitle.value.trim() });
+    isEditing.value = false;
+  }
+};
+
+const cancelEdit = () => {
+  isEditing.value = false;
+  editTitle.value = props.task.title;
+};
 </script>
 
 <template>
   <li class="task-item">
-    <div class="task-content">
+    <!-- Normal View -->
+    <div v-if="!isEditing" class="task-content">
       <input
         type="checkbox"
         :checked="task.completed"
         @change="() => emit('toggle-completed', task)"
-        class="task-checkbox"
       />
-      <span :class="{ completed: task.completed }" class="task-title">
-        {{ task.title }}
-      </span>
+      <span :class="{ completed: task.completed }">{{ task.title }}</span>
+      <div class="task-actions">
+        <BaseButton
+          label="Edit"
+          type="primary"
+          size="small"
+          @click="startEditing"
+        />
+        <BaseButton
+          label="Delete"
+          type="danger"
+          size="small"
+          @click="() => emit('delete-task', task)"
+        />
+      </div>
     </div>
-    <div class="task-actions">
-      <BaseButton
-        label="Edit"
-        type="success"
-        size="small"
-        @click="() => emit('edit-task', task)"
+
+
+    <div v-else class="task-edit">
+      <input
+        v-model="editTitle"
+        class="edit-input"
+        placeholder="Edit task title"
+        @keyup.enter="saveEdit"
+        @keyup.esc="cancelEdit"
       />
-      <BaseButton
-        label="Delete"
-        type="danger"
-        size="small"
-        @click="() => emit('delete-task', task)"
-      />
+      <div class="task-actions">
+        <BaseButton
+          label="Save"
+          type="success"
+          size="small"
+          @click="saveEdit"
+        />
+        <BaseButton
+          label="Cancel"
+          type="danger"
+          size="small"
+          @click="cancelEdit"
+        />
+      </div>
     </div>
   </li>
 </template>
-
-<style scoped>
-
-</style>

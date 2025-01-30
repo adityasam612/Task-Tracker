@@ -32,7 +32,7 @@ const handleLogin = async () => {
 <template>
   <div class="auth-container">
     <div class="auth-card">
-      <h1 class="auth-title">Login</h1>
+      <h1 class="auth-title">Login page </h1>
 
       <form @submit.prevent="handleLogin" class="auth-form">
         <div class="form-group">
@@ -76,3 +76,6 @@ const handleLogin = async () => {
     </div>
   </div>
 </template>
+<style scoped>
+
+</style>

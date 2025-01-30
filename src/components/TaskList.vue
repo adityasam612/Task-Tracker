@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import BaseButton from './BaseButton.vue';
 import TaskItem from './TaskItem.vue';
 import type { Task } from '../types/task';
 
@@ -6,25 +8,76 @@ interface Props {
   tasks: Task[];
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 const emit = defineEmits<{
-  (e: 'update-task', task: Task): void;
+  (e: 'toggle-complete', id: number): void;
   (e: 'delete-task', id: number): void;
-  (e: 'toggle-task', id: number): void;
+  (e: 'update-task', task: Task): void;
 }>();
+
+const editingTask = ref<Task | null>(null);
+const editTitle = ref('');
+
+const startEditing = (task: Task) => {
+  editingTask.value = task;
+  editTitle.value = task.title;
+};
+
+const saveEdit = () => {
+  if (editingTask.value && editTitle.value.trim()) {
+    emit('update-task', {
+      ...editingTask.value,
+      title: editTitle.value
+    });
+    editingTask.value = null;
+  }
+};
+
+const cancelEdit = () => {
+  editingTask.value = null;
+  editTitle.value = '';
+};
 </script>
 
 <template>
   <div class="task-list">
-    <TransitionGroup name="list" tag="div">
+    <transition-group name="task" tag="ul" class="task-transition-group">
       <TaskItem
         v-for="task in tasks"
         :key="task.id"
         :task="task"
-        @update-task="emit('update-task', $event)"
-        @delete-task="emit('delete-task', $event)"
-        @toggle-task="emit('toggle-task', $event)"
+        @toggle-completed="(task) => emit('toggle-complete', task.id)"
+        @edit-task="startEditing"
+        @delete-task="(task) => emit('delete-task', task.id)"
       />
-    </TransitionGroup>
+    </transition-group>
+
+    <div v-if="editingTask" class="edit-form">
+      <input
+        v-model="editTitle"
+        class="edit-input"
+        placeholder="Edit task title"
+        @keyup.enter="saveEdit"
+        @keyup.esc="cancelEdit"
+      />
+      <div class="edit-actions">
+        <BaseButton
+          label="Save"
+          type="success"
+          size="small"
+          @click="saveEdit"
+        />
+        <BaseButton
+          label="Cancel"
+          type="danger"
+          size="small"
+          @click="cancelEdit"
+        />
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>

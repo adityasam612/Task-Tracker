@@ -68,7 +68,45 @@ nav {
   padding-left: 20px;
   position: relative;
 }
+/* tasklist styling */
+.task-item {
+  display: flex;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
 
+.task-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+.task-edit {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.edit-input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.task-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #888;
+}
 
 
 
@@ -116,6 +154,139 @@ nav {
     padding: 16px 32px;
     font-size: 18px;
   }
+
+  /* login  Styles */
+  /*login style  */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #444;
+}
+
+.form-input {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.1);
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+  font-size: 0.9rem;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-links a {
+  color: #646cff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+/* Add some hover effects for the button */
+.base-button[type="primary"] {
+  transition: background-color 0.3s ease;
+}
+
+.base-button[type="primary"]:hover {
+  background-color: #535bf2;
+}
+
+/* Loading state */
+.base-button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+  
+  .button {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .button:disabled {
+    background-color: #b3d7ff;
+    cursor: not-allowed;
+  }
+  
+  .button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  /* Links styling */
+  .auth-links {
+    margin-top: 15px;
+  }
+  
+  .auth-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .auth-links a:hover {
+    text-decoration: underline;
+  }
+  
   
   /* Task Form Styles */
   .task-form {
