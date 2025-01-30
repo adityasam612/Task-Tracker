@@ -204,14 +204,15 @@ nav {
     justify-content: flex-end;
   }
   
-  /* Transition Animations */
   .task-enter-active,
   .task-leave-active {
     transition: all 0.3s ease;
   }
-  
-  .task-enter-from,
+  .task-enter-from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
   .task-leave-to {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateY(10px);
   }

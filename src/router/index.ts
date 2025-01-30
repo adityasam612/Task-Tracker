@@ -27,11 +27,16 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('@/views/RegisterView.vue')
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('@/views/LogoutView.vue')
     }
   ]
 })
 
-// Navigation guard
+
 router.beforeEach((to, from, next) => {
   const isAuthenticated = authService.isAuthenticated();
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
