@@ -39,12 +39,17 @@ const cancelEdit = () => {
   <li class="task-item">
     <!-- Normal View -->
     <div v-if="!isEditing" class="task-content">
-      <input
-        type="checkbox"
-        :checked="task.completed"
-        @change="() => emit('toggle-completed', task)"
-      />
-      <span :class="{ completed: task.completed }">{{ task.title }}</span>
+      <div class="task-main">
+        <input
+          type="checkbox"
+          :checked="task.completed"
+          @change="() => emit('toggle-completed', task)"
+          class="task-checkbox"
+        />
+        <span :class="{ 'task-title': true, completed: task.completed }">
+          {{ task.title }}
+        </span>
+      </div>
       <div class="task-actions">
         <BaseButton
           label="Edit"
@@ -61,7 +66,7 @@ const cancelEdit = () => {
       </div>
     </div>
 
-
+    <!-- Edit View -->
     <div v-else class="task-edit">
       <input
         v-model="editTitle"
@@ -69,6 +74,8 @@ const cancelEdit = () => {
         placeholder="Edit task title"
         @keyup.enter="saveEdit"
         @keyup.esc="cancelEdit"
+        ref="editInput"
+        autofocus
       />
       <div class="task-actions">
         <BaseButton
