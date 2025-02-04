@@ -57,7 +57,6 @@ const toggleComplete = (taskId: number) => {
   }
 };
 
-// Update an existing task
 const updateTask = (updatedTask: Task) => {
   const index = tasks.value.findIndex(task => task.id === updatedTask.id);
   if (index !== -1) {
