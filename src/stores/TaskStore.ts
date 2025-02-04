@@ -1,19 +1,22 @@
-import { defineStore } from 'pinia'
 
-export interface Task {
-  id: number
-  title: string
-  // other fields as needed
-}
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-export const useTaskStore = defineStore('taskStore', {
-  state: () => ({
-    tasks: [] as Task[],
-  }),
-  actions: {
-    addTask(task: Task) {
-      // Push the new task into the tasks array
-      this.tasks.push(task)
-    },
-  },
-})
+type User = {
+  id: string;
+
+};
+
+export const useAuthStore = defineStore('auth', () => {
+  const currentUser = ref<User | null>(null);
+
+  const login = (user: User) => {
+    currentUser.value = user;
+  };
+
+  const logout = () => {
+    currentUser.value = null;
+  };
+
+  return { currentUser, login, logout };
+});

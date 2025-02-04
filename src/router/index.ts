@@ -38,7 +38,6 @@ const router = createRouter({
       path: '/User',
       name: 'user',
       component: () => import('@/views/UserView.vue'),
-
     }
   ]
 })
