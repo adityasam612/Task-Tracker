@@ -20,7 +20,7 @@ const isLoggedOut = ref(false);
 const performLogout = async () => {
   try {
 
-    localStorage.clear();
+  localStorage.removeItem('token');
 
 
     isLoggedOut.value = true;
