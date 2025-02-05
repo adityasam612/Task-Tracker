@@ -5,9 +5,7 @@
     </div>
     <div v-else class="logged-out-message">
       <h2>You have been successfully logged out</h2>
-      <router-link to="/login" class="login-link">
-        Return to Login
-      </router-link>
+
     </div>
   </div>
 </template>
@@ -22,7 +20,7 @@ const isLoggedOut = ref(false);
 const performLogout = async () => {
   try {
 
-    localStorage.clear();
+  localStorage.removeItem('token');
 
 
     isLoggedOut.value = true;

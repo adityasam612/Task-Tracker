@@ -5,6 +5,7 @@ import BaseButton from '../components/BaseButton.vue';
 import { authService } from '../services/authService';
 
 const router = useRouter();
+
 const email = ref('');
 const password = ref('');
 const error = ref('');

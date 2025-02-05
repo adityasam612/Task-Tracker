@@ -1,7 +1,7 @@
-// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import { authService } from '@/services/authService'
 import HomeView from '@/views/HomeView.vue'
+import UserView from '@/views/UserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +32,11 @@ const router = createRouter({
       path: '/logout',
       name: 'logout',
       component: () => import('@/views/LogoutView.vue')
+    },
+    {
+      path: '/User',
+      name: 'user',
+      component: () => import('@/views/UserView.vue'),
     }
   ]
 })
