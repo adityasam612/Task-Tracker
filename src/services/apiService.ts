@@ -126,6 +126,6 @@ export const apiService = {
 
   logout(): void {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
+
   },
 };

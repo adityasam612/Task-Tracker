@@ -2,9 +2,12 @@
 import {ref} from 'vue';
 import { useRouter } from 'vue-router';
 import BaseButton from '../components/BaseButton.vue';
+import { useAuthStore } from '../stores/AuthStore';
 import { authService } from '../services/authService';
 
 const router = useRouter();
+const authStore = useAuthStore();
+
 const email = ref('');
 const password = ref('');
 const error = ref('');
@@ -12,13 +15,16 @@ const isLoading = ref(false);
 
 const handleLogin = async () => {
   try {
-    error.value = '';
     isLoading.value = true;
+    error.value = '';
 
-    await authService.login({
+    const response = await authService.login({
       email: email.value,
-      password: password.value,
+      password: password.value
     });
+
+    authStore.setUser(response.user);
+    authStore.setToken(response.token);
 
     router.push('/');
   } catch (err) {

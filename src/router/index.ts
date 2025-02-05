@@ -1,4 +1,3 @@
-// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import { authService } from '@/services/authService'
 import HomeView from '@/views/HomeView.vue'

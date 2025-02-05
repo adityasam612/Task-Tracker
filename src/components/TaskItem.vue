@@ -37,7 +37,7 @@ const cancelEdit = () => {
 
 <template>
   <li class="task-item">
-    <!-- Normal View -->
+
     <div v-if="!isEditing" class="task-content">
       <div class="task-main">
         <input
@@ -66,7 +66,7 @@ const cancelEdit = () => {
       </div>
     </div>
 
-    <!-- Edit View -->
+
     <div v-else class="task-edit">
       <input
         v-model="editTitle"
